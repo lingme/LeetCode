@@ -1,11 +1,20 @@
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
 class Solution {
 public:
     bool isPalindrome(int x) {
-
+        if (x < 0) return false;
+        int d = static_cast<int>(log10(x) + 1);
+        int t = pow(10, d - 1);
+        for (int i = 0; i < d / 2; ++i) {
+            if (x / t != x % 10) return false;
+            x = (x - x / t * t) / 10;
+            t /= 100;
+        }
+        return true;
     }
 
     bool isPalindrome1(int x) {
@@ -16,7 +25,7 @@ public:
                 break;
             i++;
         }
-        return i == x_string.size() / 2 ? true : false;
+        return i == x_string.size() / 2;
     }
 
     bool isPalindrome2(int x) {
